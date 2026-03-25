@@ -579,49 +579,6 @@
                     </button>
                 </form>
 
-                <div class="form-toggle">
-                    Não tem conta? <a onclick="mostrarRegistro()">Criar conta</a>
-                </div>
-            </div>
-
-            <!-- Formulário de Registro -->
-            <div id="registroForm" class="hidden-form">
-                <h2 class="form-title">Criar Conta</h2>
-                <p class="form-subtitle">Registre-se para acessar</p>
-
-                <div id="alertRegistro" class="alert"></div>
-
-                <form onsubmit="fazerRegistro(event)">
-                    <div class="form-group">
-                        <label for="registroUsuario">Usuário</label>
-                        <input type="text" id="registroUsuario" placeholder="Escolha um usuário" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="registroSenha">Senha</label>
-                        <div class="password-toggle">
-                            <input type="password" id="registroSenha" placeholder="Crie uma senha forte" required>
-                            <button type="button" class="password-toggle-btn" onclick="togglePassword('registroSenha')">👁️</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="registroConfirm">Confirmar Senha</label>
-                        <div class="password-toggle">
-                            <input type="password" id="registroConfirm" placeholder="Confirme a senha" required>
-                            <button type="button" class="password-toggle-btn" onclick="togglePassword('registroConfirm')">👁️</button>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        <span>✅</span>
-                        <span>Criar Conta</span>
-                    </button>
-                </form>
-
-                <div class="form-toggle">
-                    Já tem conta? <a onclick="mostrarLogin()">Fazer login</a>
-                </div>
             </div>
         </div>
     </div>
@@ -718,17 +675,26 @@
         const SESSION_KEY = 'best_ice_session';
         const LAST_ACTIVITY_KEY = 'best_ice_last_activity';
 
-        // Inicializar usuários padrão
+        // ===== ADICIONE SEUS USUARIOS AQUI =====
+        // Exemplo: { usuario: 'nome', senha: 'senha123' }
+        // A senha sera criptografada automaticamente
+        const USUARIOS_PREDEFINIDOS = [
+            { usuario: 'roberto', senha: 'Ro14189061' },
+            // Adicione mais usuarios aqui conforme necessario:
+            // { usuario: 'maria', senha: 'senha123' },
+            // { usuario: 'joao', senha: 'senha456' },
+        ];
+
+        // Inicializar usuarios padrao
         function inicializarUsuarios() {
             const usuarios = obterUsuarios();
             if (usuarios.length === 0) {
-                const senhaHash = CryptoJS.SHA256('Ro14189061').toString();
-                usuarios.push({
-                    usuario: 'roberto',
-                    senha: senhaHash,
+                const usuariosComHash = USUARIOS_PREDEFINIDOS.map(u => ({
+                    usuario: u.usuario,
+                    senha: CryptoJS.SHA256(u.senha).toString(),
                     dataCriacao: new Date().toISOString()
-                });
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(usuarios));
+                }));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(usuariosComHash));
             }
         }
 
@@ -791,62 +757,9 @@
             }, 1000);
         }
 
-        function fazerRegistro(event) {
-            event.preventDefault();
-
-            const usuario = document.getElementById('registroUsuario').value;
-            const senha = document.getElementById('registroSenha').value;
-            const confirmar = document.getElementById('registroConfirm').value;
-
-            if (usuario.length < 3) {
-                mostrarAlerta('Usuário deve ter pelo menos 3 caracteres!', 'error', 'alertRegistro');
-                return;
-            }
-
-            if (senha.length < 6) {
-                mostrarAlerta('Senha deve ter pelo menos 6 caracteres!', 'error', 'alertRegistro');
-                return;
-            }
-
-            if (senha !== confirmar) {
-                mostrarAlerta('As senhas não conferem!', 'error', 'alertRegistro');
-                return;
-            }
-
-            const usuarios = obterUsuarios();
-            if (usuarios.find(u => u.usuario === usuario)) {
-                mostrarAlerta('Este usuário já existe!', 'error', 'alertRegistro');
-                return;
-            }
-
-            const senhaHash = CryptoJS.SHA256(senha).toString();
-            usuarios.push({
-                usuario: usuario,
-                senha: senhaHash,
-                dataCriacao: new Date().toISOString()
-            });
-
-            salvarUsuarios(usuarios);
-            mostrarAlerta('Conta criada com sucesso! Faça login.', 'success', 'alertRegistro');
-
-            setTimeout(() => {
-                document.getElementById('registroForm').reset();
-                mostrarLogin();
-            }, 1500);
-        }
-
         function mostrarLogin() {
-            document.getElementById('loginForm').classList.remove('hidden-form');
-            document.getElementById('loginForm').classList.add('visible-form');
-            document.getElementById('registroForm').classList.remove('visible-form');
-            document.getElementById('registroForm').classList.add('hidden-form');
-        }
-
-        function mostrarRegistro() {
-            document.getElementById('loginForm').classList.remove('visible-form');
-            document.getElementById('loginForm').classList.add('hidden-form');
-            document.getElementById('registroForm').classList.remove('hidden-form');
-            document.getElementById('registroForm').classList.add('visible-form');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboardScreen').classList.remove('visible');
         }
 
         function mostrarDashboard() {
