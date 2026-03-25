@@ -539,7 +539,7 @@
         async function buscarVendasDia(data) {
             try {
                 const token = await obterToken();
-                const response = await fetch(`${CONFIG.API_URL}?emissao=${data}`, {
+                const response = await fetch(`${CONFIG.API_URL}?emissao=${data}&limit=100`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
