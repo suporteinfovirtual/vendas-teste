@@ -9,7 +9,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Uniplus Vendas">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232563eb' width='192' height='192'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>📊</text></svg>">
     <style>
         * {
             margin: 0;
@@ -28,8 +27,6 @@
             --text-dark: #1f2937;
             --text-gray: #6b7280;
             --border-color: #e5e7eb;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
@@ -39,7 +36,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: var(--text-dark);
@@ -51,10 +48,9 @@
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             background: var(--bg-white);
-            padding: 30px 0;
+            padding: 30px;
             margin-bottom: 30px;
             border-radius: 12px;
             box-shadow: var(--shadow-lg);
@@ -66,7 +62,6 @@
             color: var(--primary-color);
             margin-bottom: 8px;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         .header p {
@@ -74,7 +69,6 @@
             font-size: 1rem;
         }
 
-        /* Card */
         .card {
             background: var(--bg-white);
             border-radius: 12px;
@@ -88,21 +82,10 @@
             color: var(--text-dark);
             margin-bottom: 20px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
         }
 
-        .card-title::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 24px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        /* Filter Section */
         .filters {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -137,7 +120,6 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        /* Button */
         .btn {
             padding: 12px 24px;
             border: none;
@@ -156,16 +138,12 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-primary:active:not(:disabled) {
-            transform: translateY(0);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .btn:disabled {
@@ -180,7 +158,6 @@
             flex-wrap: wrap;
         }
 
-        /* Progress Bar */
         .progress-container {
             display: none;
             margin-bottom: 20px;
@@ -203,7 +180,6 @@
             background: linear-gradient(90deg, var(--primary-color), var(--success-color));
             width: 0%;
             transition: width 0.3s ease;
-            border-radius: 3px;
         }
 
         .progress-text {
@@ -213,11 +189,9 @@
             text-align: center;
         }
 
-        /* Table */
         .table-container {
             overflow-x: auto;
             border-radius: 8px;
-            box-shadow: var(--shadow-sm);
         }
 
         table {
@@ -228,9 +202,6 @@
 
         thead {
             background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         th {
@@ -250,16 +221,8 @@
             color: var(--text-dark);
         }
 
-        tbody tr {
-            transition: var(--transition);
-        }
-
         tbody tr:hover {
             background: var(--bg-light);
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
         }
 
         .text-center {
@@ -274,7 +237,6 @@
             color: var(--text-gray);
         }
 
-        /* Summary */
         .summary {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -313,7 +275,6 @@
             color: var(--success-color);
         }
 
-        /* Alert */
         .alert {
             padding: 16px;
             border-radius: 8px;
@@ -355,7 +316,14 @@
             }
         }
 
-        /* Responsive */
+        .text-success {
+            color: var(--success-color);
+        }
+
+        .font-mono {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -394,14 +362,6 @@
             .summary-value {
                 font-size: 1.5rem;
             }
-        }
-
-        .text-success {
-            color: var(--success-color);
-        }
-
-        .font-mono {
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
         }
     </style>
 </head>
@@ -482,109 +442,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Criar e registrar Service Worker dinamicamente
-        const swCode = `
-const CACHE_NAME = 'uniplus-vendas-v1';
-const urlsToCache = ['/vendas-teste/', '/vendas-teste/index.html'];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('✅ Cache criado');
-      return cache.addAll(urlsToCache);
-    }).catch(() => console.log('⚠️ Cache offline indisponível'))
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-  self.clients.claim();
-});
-
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  if (event.request.url.includes('localhost')) return;
-
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) return response;
-      return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200) return response;
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-        return response;
-      });
-    }).catch(() => {
-      return caches.match(event.request);
-    })
-  );
-});
-`;
-
-        // Registrar Service Worker como blob
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                
-                navigator.serviceWorker.register(swUrl)
-                    .then((registration) => {
-                        console.log('✅ Service Worker registrado com sucesso!');
-                    })
-                    .catch((error) => {
-                        console.log('⚠️ Service Worker não disponível:', error);
-                    });
-            });
-        }
-
-        // Criar manifest dinamicamente
-        const manifest = {
-            name: "Uniplus Vendas - Dashboard de Vendas",
-            short_name: "Uniplus Vendas",
-            description: "Consulta de vendas em tempo real da API Uniplus Web",
-            start_url: "/vendas-teste/",
-            scope: "/vendas-teste/",
-            display: "standalone",
-            orientation: "portrait-primary",
-            theme_color: "#2563eb",
-            background_color: "#ffffff",
-            icons: [
-                {
-                    src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232563eb' width='192' height='192'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>📊</text></svg>",
-                    sizes: "192x192",
-                    type: "image/svg+xml",
-                    purpose: "any"
-                },
-                {
-                    src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%232563eb' width='512' height='512'/><text x='50%' y='50%' font-size='300' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>📊</text></svg>",
-                    sizes: "512x512",
-                    type: "image/svg+xml",
-                    purpose: "any maskable"
-                }
-            ]
-        };
-
-        // Adicionar manifest dinamicamente
-        const manifestLink = document.createElement('link');
-        manifestLink.rel = 'manifest';
-        manifestLink.href = 'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
-        document.head.appendChild(manifestLink);
-    </script>
 
     <script>
         // Configurações da API Uniplus
