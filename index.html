@@ -687,15 +687,13 @@
 
         // Inicializar usuarios padrao
         function inicializarUsuarios() {
-            const usuarios = obterUsuarios();
-            if (usuarios.length === 0) {
-                const usuariosComHash = USUARIOS_PREDEFINIDOS.map(u => ({
-                    usuario: u.usuario,
-                    senha: CryptoJS.SHA256(u.senha).toString(),
-                    dataCriacao: new Date().toISOString()
-                }));
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(usuariosComHash));
-            }
+            // Sempre resetar para os usuarios predefinidos (garante sincronizacao)
+            const usuariosComHash = USUARIOS_PREDEFINIDOS.map(u => ({
+                usuario: u.usuario,
+                senha: CryptoJS.SHA256(u.senha).toString(),
+                dataCriacao: new Date().toISOString()
+            }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(usuariosComHash));
         }
 
         function obterUsuarios() {
