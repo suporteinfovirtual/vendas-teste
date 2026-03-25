@@ -507,11 +507,14 @@
         // Inicializar datas
         function inicializarDatas() {
             const hoje = new Date();
-            const umDiaAtras = new Date(hoje);
-            umDiaAtras.setDate(umDiaAtras.getDate() - 1);
-
-            dataFim.valueAsDate = hoje;
-            dataInicio.valueAsDate = umDiaAtras;
+            // Formatar data como YYYY-MM-DD
+            const ano = hoje.getFullYear();
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const dia = String(hoje.getDate()).padStart(2, '0');
+            const dataFormatada = `${ano}-${mes}-${dia}`;
+            
+            dataInicio.value = dataFormatada;
+            dataFim.value = dataFormatada;
         }
 
         // Mostrar alerta
