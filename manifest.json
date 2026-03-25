@@ -1,0 +1,22 @@
+{
+  "name": "Best Ice Sorvetes - Consulta de Vendas",
+  "short_name": "Best Ice Vendas",
+  "description": "Dashboard de consulta de vendas Best Ice Sorvetes em tempo real",
+  "start_url": "/vendas-teste/",
+  "scope": "/vendas-teste/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#6ba3a3",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": [],
+  "shortcuts": []
+}
